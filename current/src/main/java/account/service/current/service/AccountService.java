@@ -1,7 +1,10 @@
 package account.service.current.service;
 
-import org.springframework.stereotype.Service;
+import account.service.current.dto.AccountResponse;
+import account.service.current.dto.CustomerInfoResponse;
 
-@Service
-public class AccountService {
+public interface AccountService {
+
+    AccountResponse openAccount(Long customerId, double initialCredit);
+    CustomerInfoResponse getCustomerInfo(Long customerId);
 }

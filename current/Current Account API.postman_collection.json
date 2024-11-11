@@ -1,0 +1,27 @@
+{
+	"info": {
+		"_postman_id": "169c7549-634f-4c49-bbc3-29ae0eed5438",
+		"name": "Current Account API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11881037",
+		"_collection_link": "https://atisafunderportal.postman.co/workspace/Carepay~b25a00c5-faf4-432a-9c19-6c971fa71aa3/collection/11881037-169c7549-634f-4c49-bbc3-29ae0eed5438?action=share&source=collection_link&creator=11881037"
+	},
+	"item": [
+		{
+			"name": "Current Account Create",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get Info By CustomerId",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
