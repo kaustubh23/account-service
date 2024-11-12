@@ -23,7 +23,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Navigate to project directory
-        run: cd account-service
+        run: cd account-service/current
 
       - name: Build and Test with Maven
         run: mvn clean install -DskipTests=false -X
