@@ -33,7 +33,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Step 4: Build and test the Spring Boot project
+      # Step 4: Verify directory contents
+      - name: Check directory contents
+        run: ls -la
+
+      # Step 5: Build and test the Spring Boot project
       - name: Build and Test with Maven
         run: mvn clean install -DskipTests=false -X
 
