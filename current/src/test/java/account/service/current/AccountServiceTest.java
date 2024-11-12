@@ -10,6 +10,7 @@ import account.service.current.exception.ResourceNotFoundException;
 import account.service.current.mapper.TransactionMapper;
 import account.service.current.repository.AccountRepository;
 import account.service.current.repository.CustomerRepository;
+import account.service.current.service.TransactionService;
 import account.service.current.service.impl.AccountServiceImpl;
 import account.service.current.service.impl.TransactionServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +36,7 @@ public class AccountServiceTest {
     private AccountRepository accountRepository;
 
     @Mock
-    private TransactionServiceImpl transactionService;
+    private TransactionService transactionService;
 
     @Mock
     private TransactionMapper transactionMapper;
