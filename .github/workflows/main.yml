@@ -25,11 +25,10 @@ jobs:
       - name: Verify directory structure
         run: ls -R
 
-      - name: Navigate to project directory
-        run: cd current && ls -R
-
-      - name: Build and Test with Maven
-        run: mvn clean install -DskipTests=false -X
+      - name: Navigate to current directory and run Maven
+        run: |
+          cd current
+          mvn clean install -DskipTests=false -X
 
       - name: Upload Maven cache
         uses: actions/cache@v2
