@@ -84,7 +84,7 @@ For in-memory testing, you can use the H2 database configuration.
       ```
 
 2. **Get Customer Information**: Retrieve customer details, including balance and transaction history.
-    - **GET** `/api/account/{customerId}/info`
+    - **GET** `/api/account/customer/{customerId}/info`
 
 ## API Documentation
 API documentation is available through Swagger UI at:
