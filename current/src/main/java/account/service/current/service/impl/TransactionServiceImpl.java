@@ -5,6 +5,7 @@ import account.service.current.entity.Transaction;
 import account.service.current.entity.TransactionType;
 import account.service.current.repository.TransactionRepository;
 import account.service.current.service.TransactionService;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,11 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class TransactionServiceImpl  implements TransactionService {
+@AllArgsConstructor
+public class TransactionServiceImpl implements TransactionService {
 
-    private static final Logger logger = LoggerFactory.getLogger(TransactionServiceImpl.class); // Logger initialization
+    private static final Logger logger = LoggerFactory.getLogger(TransactionServiceImpl.class);
 
-    @Autowired
     private TransactionRepository transactionRepository;
 
     /**
@@ -32,27 +33,26 @@ public class TransactionServiceImpl  implements TransactionService {
     public Transaction createTransaction(Account account, double amount, TransactionType type) {
         logger.info("Creating transaction for account ID: {}. Amount: {}, Type: {}", account.getAccountId(), amount, type);
 
-        // Create a new transaction object and set its properties
+        // Validate transaction amount
+        if (amount <= 0) {
+            logger.error("Transaction amount must be positive: {}", amount);
+            throw new IllegalArgumentException("Transaction amount must be positive.");
+        }
+
         Transaction transaction = new Transaction();
         transaction.setAccount(account);
         transaction.setAmount(amount);
         transaction.setTransactionType(type);
-        transaction.setTimestamp(LocalDateTime.now()); // Set the current timestamp
+        transaction.setTimestamp(LocalDateTime.now());
 
-        // Log the transaction creation
-        logger.debug("Transaction details: Account ID: {}, Amount: {}, Type: {}, Timestamp: {}",
-                account.getAccountId(), amount, type, transaction.getTimestamp());
-
-        // Save the transaction in the repository
         transaction = transactionRepository.save(transaction);
         logger.info("Transaction saved with ID: {}", transaction.getTransactionId());
 
-        // Update the account balance based on the transaction type
+        // Update account balance based on transaction type
         double updatedBalance = account.getBalance() + (type == TransactionType.CREDIT ? amount : -amount);
         account.setBalance(updatedBalance);
 
-        // Log the updated account balance
-        logger.info("Account ID: {} balance updated to: {}", account.getAccountId(), updatedBalance);
+        logger.debug("Account ID: {} balance updated to: {}", account.getAccountId(), updatedBalance);
 
         return transaction;
     }

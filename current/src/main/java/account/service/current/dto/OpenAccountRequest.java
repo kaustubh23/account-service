@@ -3,7 +3,7 @@ package account.service.current.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
 @Data
@@ -22,7 +22,7 @@ public class OpenAccountRequest {
     private Long customerId;
 
     @NotNull(message = "Initial credit must not be null")
-    @Positive(message = "Initial credit must be a positive amount")
+    @PositiveOrZero(message = "Initial credit must be a positive amount")
     @Schema(
             description = "Initial credit amount",
             example = "400.00"
