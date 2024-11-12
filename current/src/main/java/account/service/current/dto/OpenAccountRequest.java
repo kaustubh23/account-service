@@ -1,5 +1,6 @@
 package account.service.current.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +15,7 @@ import lombok.Data;
 public class OpenAccountRequest {
 
     @NotNull(message = "Customer ID must not be null")
-    @Min(value = 1, message = "Customer ID must be a positive number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Schema(
             description = "Customer Id to identify customer",
             example = "1"
@@ -22,6 +23,7 @@ public class OpenAccountRequest {
     private Long customerId;
 
     @NotNull(message = "Initial credit must not be null")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @PositiveOrZero(message = "Initial credit must be a positive amount")
     @Schema(
             description = "Initial credit amount",

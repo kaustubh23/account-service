@@ -45,7 +45,7 @@ public class AccountControllerIntegrationTest {
     @Test
     void getCustomerInfo_whenCustomerExists() throws Exception {
         Long customerId = 1L;
-        mockMvc.perform(get("/api/account/{customerId}/info", customerId))
+        mockMvc.perform(get("/api/account/customer/{customerId}/info", customerId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("200"));
     }
@@ -53,7 +53,7 @@ public class AccountControllerIntegrationTest {
     @Test
     void getCustomerInfo_whenCustomerDoesNotExist() throws Exception {
         Long nonExistentCustomerId = 999L;
-        mockMvc.perform(get("/api/account/{customerId}/info", nonExistentCustomerId))
+        mockMvc.perform(get("/api/account/customer/{customerId}/info", nonExistentCustomerId))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.status").value("404"));
     }

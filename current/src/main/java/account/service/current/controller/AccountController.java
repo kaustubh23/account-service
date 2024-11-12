@@ -13,7 +13,12 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.ObjectError;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/account")
@@ -49,9 +54,16 @@ public class AccountController {
             )
     })
     @PostMapping("/create")
-    public ResponseEntity<ResponseDto> openAccount(@Valid @RequestBody OpenAccountRequest request) {
+    public ResponseEntity<ResponseDto> openAccount(@Valid @RequestBody OpenAccountRequest request, BindingResult result) {
         try {
-            // Attempt to create account and get response
+
+            if (result.hasErrors()) {
+                List<String> errorMessages = result.getAllErrors().stream()
+                        .map(ObjectError::getDefaultMessage)
+                        .collect(Collectors.toList());
+                return new ResponseEntity<>(new ResponseDto("Validation Failed", String.join(", ", errorMessages)), HttpStatus.BAD_REQUEST);
+            }
+                // Attempt to create account and get response
             AccountResponse account = accountService.openAccount(request.getCustomerId(), request.getInitialCredit());
             // Return success response
             return ResponseEntity
@@ -114,7 +126,7 @@ public class AccountController {
                     )
             )
     })
-    @GetMapping("/{customerId}/info")
+    @GetMapping("/customer/{customerId}/info")
     public ResponseEntity<ResponseDtoWithData<CustomerInfoResponse>> getCustomerInfo(@PathVariable Long customerId) {
         try {
             // Attempt to retrieve customer info
