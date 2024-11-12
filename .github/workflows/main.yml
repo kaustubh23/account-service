@@ -35,5 +35,5 @@ jobs:
 
       # Step 4: Build and test the Spring Boot project
       - name: Build and Test with Maven
-        run: mvn clean install -DskipTests=false
+        run: mvn clean install -DskipTests=false -X
 
